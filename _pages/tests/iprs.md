@@ -9,7 +9,7 @@ breadcrumb: tests
 
 [ IPRS](https://iprs.dioptra.io/) is an initiative to continuously monitor IP-level routing across the internet. This is done through the regular collection of traceroute-style measurements from multiple vantage points towards a significant portion of the internet's routable address blocks. The survey is conducted by the [Dioptra research group](https://dioptra.io) at [Sorbonne University](https://www.sorbonne-universite.fr/en/)'s [LIP6 computer science laboratory](https://www.lip6.fr/?LANG=en).
 
-As of December 2024, IPRS conducts four daily IPv4 snapshots featuring multipath route traces from ten vantage points towards all routable IPv4 /24 prefixes. So as to economize on M-Lab data storage, a subset of these measurements is being selected to be offered through M-Lab.
+As of December 2023, IPRS conducts four daily IPv4 snapshots featuring multipath route traces from ten vantage points towards all routable IPv4 /24 prefixes. So as to economize on M-Lab data storage, a subset of these measurements is being selected to be offered through M-Lab.
 
 Please cite this data set as follows: **M-Lab's Sorbonne IPRS Data Set, \<date range used\>. [https://measurementlab.net/tests/iprs](https://measurementlab.net/tests/iprs)** 
 
