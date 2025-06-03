@@ -1,19 +1,26 @@
 FROM ubuntu:focal
 
-RUN apt update
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt install -y git ruby-dev gcc g++ make libgmp-dev build-essential \
-    patch ruby-dev zlib1g-dev liblzma-dev openssl libssl-dev jupyter \
-    jupyter-nbconvert curl locales
+ENV DEBIAN_FRONTEND=noninteractive
 
+# Install system dependencies (cached unless this line or the base image changes)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git ruby-dev gcc g++ make libgmp-dev build-essential \
+        patch zlib1g-dev liblzma-dev openssl libssl-dev \
+        curl locales jupyter jupyter-nbconvert && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /home/website
-COPY Gemfile .
-COPY Gemfile.lock .
-RUN gem install bundler:2.4.22
-RUN bundle install
-RUN gem cleanup
 
-# Set the default locale for UTF-8 to allow jekyll and htmlproofer to
-# successfully process files with non-ascii characters.
+# Copy dependency files first to take advantage of Docker layer caching
+COPY Gemfile Gemfile.lock ./
+
+# Install Ruby dependencies
+RUN gem install bundler:2.4.22 && \
+    bundle install && \
+    gem cleanup
+
+# Set UTF-8 locale
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
